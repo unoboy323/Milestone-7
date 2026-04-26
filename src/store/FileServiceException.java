@@ -5,7 +5,9 @@ package store;
  */
 public class FileServiceException extends Exception {
 
-    /**
+    private static final long serialVersionUID = 1L;
+
+	/**
      * Creates a new file service exception with a message.
      */
     public FileServiceException(String message) {

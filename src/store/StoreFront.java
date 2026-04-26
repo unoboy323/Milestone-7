@@ -27,6 +27,7 @@ public class StoreFront {
     /**
      * Initializes store with items from a JSON file.
      */
+    
     public void initializeStore() {
         try {
             inventory.initializeInventory(INVENTORY_FILE);

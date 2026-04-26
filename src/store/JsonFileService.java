@@ -15,7 +15,7 @@ public class JsonFileService implements FileService {
     // used by Jackson to convert Java objects to JSON and JSON to Java objects
     private ObjectMapper mapper;
 
-    // constructor creates the object mappere
+    // constructor creates the object mapper
     public JsonFileService() {
         mapper = new ObjectMapper();
     }
@@ -38,9 +38,11 @@ public class JsonFileService implements FileService {
     @Override
     public void writeProducts(String fileName, ArrayList<SalableProduct> products) throws FileServiceException {
         try {
-            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), products);
+            mapper.writerFor(new TypeReference<ArrayList<SalableProduct>>() {})
+                  .withDefaultPrettyPrinter()
+                  .writeValue(new File(fileName), products);
         } catch (IOException e) {
             throw new FileServiceException("Could not write inventory file.", e);
         }
     }
-} 
+}
