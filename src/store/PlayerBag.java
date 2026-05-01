@@ -7,27 +7,39 @@ import java.util.ArrayList;
  */
 public class PlayerBag {
 
-// lets us store multiple items in a list
     private ArrayList<SalableProduct> items;
 
-// constructor
+    /**
+     * Creates an empty player bag.
+     */
     public PlayerBag() {
         items = new ArrayList<SalableProduct>();
     }
 
-// adds a product to the player's bag
+    /**
+     * Adds a product to the player bag.
+     *
+     * @param product the product to add
+     */
     public void addItem(SalableProduct product) {
-        items.add(product);
+        if (product != null) {
+            items.add(product);
+        }
     }
 
-// returns the list of items in the bag
+    /**
+     * Gets all items in the player bag.
+     *
+     * @return the player bag item list
+     */
     public ArrayList<SalableProduct> getItems() {
         return items;
     }
 
-// shows what items the player has
+    /**
+     * Displays the player bag contents.
+     */
     public void displayBag() {
-
         if (items.size() == 0) {
             System.out.println("\n===== PLAYER BAG =====");
             System.out.println("Your bag is empty.");
@@ -39,10 +51,10 @@ public class PlayerBag {
         System.out.println("Items in your bag:");
 
         for (int i = 0; i < items.size(); i++) {
-            System.out.println((i + 1) + ". " + items.get(i).getName());
+            SalableProduct product = items.get(i);
+            System.out.println((i + 1) + ". " + product.getName() + " - $" + product.getPrice());
         }
 
-        // added to make the bag display more informative
         System.out.println("Total items in bag: " + items.size());
         System.out.println();
     }

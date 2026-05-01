@@ -1,29 +1,31 @@
 package store;
 
 /**
- * Handles moving items from cart to bag.
+ * Handles moving items from the cart to the player bag.
  */
 public class Checkout {
 
-// this method handles the checkout process
     /**
      * Moves items from the cart into the player bag.
+     *
+     * @param cart the shopping cart
+     * @param bag the player bag
+     * @return true if checkout was completed, false otherwise
      */
-    public void processCheckout(ShoppingCart cart, PlayerBag bag) {
-
-        if (cart.getItems().size() == 0) {
+    public boolean processCheckout(ShoppingCart cart, PlayerBag bag) {
+        if (cart == null || bag == null || cart.isEmpty()) {
             System.out.println("Your cart is empty.");
-            return;
+            return false;
         }
 
-        // added so the user knows checkout is happening
         System.out.println("\nProcessing checkout...");
 
         for (int i = 0; i < cart.getItems().size(); i++) {
             SalableProduct product = cart.getItems().get(i);
-            bag.addItem(product);
+            bag.addItem(product.copyForPurchase());
         }
 
         cart.clearCart();
+        return true;
     }
 }

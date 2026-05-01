@@ -14,19 +14,24 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public class SalableProduct implements Comparable<SalableProduct> {
 
-//Creating the variables
     private String name;
     private String description;
     private double price;
     private int quantity;
 
-// default constructor needed for JSON
+    /**
+     * Default constructor needed for JSON.
+     */
     public SalableProduct() {
     }
 
-//Runs when make a new product it give the new product name, price etc
     /**
      * Creates a new salable product.
+     *
+     * @param name the product name
+     * @param description the product description
+     * @param price the product price
+     * @param quantity the product quantity
      */
     public SalableProduct(String name, String description, double price, int quantity) {
         this.name = name;
@@ -34,44 +39,92 @@ public class SalableProduct implements Comparable<SalableProduct> {
         this.price = price;
         this.quantity = quantity;
     }
-    
-//Getters methods allows other classes to read
+
+    /**
+     * Gets the product name.
+     *
+     * @return the product name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the product description.
+     *
+     * @return the product description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Gets the product price.
+     *
+     * @return the product price
+     */
     public double getPrice() {
         return price;
     }
 
+    /**
+     * Gets the product quantity.
+     *
+     * @return the product quantity
+     */
     public int getQuantity() {
         return quantity;
     }
 
-//Setter methods allows other classes to update values
+    /**
+     * Sets the product name.
+     *
+     * @param name the product name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Sets the product description.
+     *
+     * @param description the product description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Sets the product price.
+     *
+     * @param price the product price
+     */
     public void setPrice(double price) {
         this.price = price;
     }
 
     /**
-     * Updates the quantity of the product.
+     * Sets the product quantity.
+     *
+     * @param quantity the product quantity
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
+    /**
+     * Creates a separate copy of the product for the cart or player bag.
+     * This prevents cart items from changing the inventory item directly.
+     *
+     * @return a copied salable product with quantity 1
+     */
+    public SalableProduct copyForPurchase() {
+        return new SalableProduct(name, description, price, 1);
+    }
+
+    /**
+     * Displays the product information.
+     */
     public void displayProduct() {
         System.out.println("Name: " + name);
         System.out.println("Description: " + description);
@@ -79,16 +132,27 @@ public class SalableProduct implements Comparable<SalableProduct> {
         System.out.println("Quantity: " + quantity);
     }
 
-    // lets products be sorted by name
-    // if names are the same, sort by price
+    /**
+     * Compares products by name first and price second.
+     *
+     * @param other the other product being compared
+     * @return comparison result
+     */
     @Override
     public int compareTo(SalableProduct other) {
-        int nameCompare = this.name.compareToIgnoreCase(other.name);
+        if (other == null) {
+            return 1;
+        }
+
+        String thisName = name == null ? "" : name;
+        String otherName = other.name == null ? "" : other.name;
+
+        int nameCompare = thisName.compareToIgnoreCase(otherName);
 
         if (nameCompare != 0) {
             return nameCompare;
         }
 
-        return Double.compare(this.price, other.price);
+        return Double.compare(price, other.price);
     }
 }

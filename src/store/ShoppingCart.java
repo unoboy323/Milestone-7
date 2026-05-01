@@ -7,35 +7,88 @@ import java.util.ArrayList;
  */
 public class ShoppingCart {
 
-//this makes a var list it stores the salableProduct objects in the cart
     private ArrayList<SalableProduct> items;
 
-//makes an empty shopping cart when the cart obj is created
+    /**
+     * Creates an empty shopping cart.
+     */
     public ShoppingCart() {
         items = new ArrayList<SalableProduct>();
     }
 
-//Adds product to cart
+    /**
+     * Adds a product to the cart.
+     *
+     * @param product the product to add
+     */
     public void addItem(SalableProduct product) {
-        items.add(product);
+        if (product != null) {
+            items.add(product);
+        }
     }
 
-// remove product from cart
-    public void removeItem(SalableProduct product) {
-        items.remove(product);
+    /**
+     * Removes a product from the cart.
+     *
+     * @param product the product to remove
+     * @return true if the product was removed, false otherwise
+     */
+    public boolean removeItem(SalableProduct product) {
+        return items.remove(product);
     }
 
-//returns the ALL products in cart
+    /**
+     * Finds an item in the cart by name.
+     *
+     * @param name the product name
+     * @return the matching cart item, or null if not found
+     */
+    public SalableProduct findItem(String name) {
+        if (name == null) {
+            return null;
+        }
+
+        String searchName = name.trim();
+
+        for (int i = 0; i < items.size(); i++) {
+            SalableProduct product = items.get(i);
+
+            if (product.getName() != null && product.getName().equalsIgnoreCase(searchName)) {
+                return product;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets all items in the cart.
+     *
+     * @return the cart item list
+     */
     public ArrayList<SalableProduct> getItems() {
         return items;
     }
-    
-// removes everything  from cart
+
+    /**
+     * Checks if the cart is empty.
+     *
+     * @return true if empty, false otherwise
+     */
+    public boolean isEmpty() {
+        return items.size() == 0;
+    }
+
+    /**
+     * Removes everything from the cart.
+     */
     public void clearCart() {
         items.clear();
     }
-    
-// if cart has no items says cart is empty
+
+    /**
+     * Displays the cart contents.
+     */
     public void displayCart() {
         if (items.size() == 0) {
             System.out.println("\n===== SHOPPING CART =====");
@@ -43,15 +96,15 @@ public class ShoppingCart {
             System.out.println();
             return;
         }
-        
-     // if cart has  items it loops through showing each 
+
         System.out.println("\n===== SHOPPING CART =====");
         System.out.println("Items in your cart:");
+
         for (int i = 0; i < items.size(); i++) {
-            System.out.println((i + 1) + ". " + items.get(i).getName());
+            SalableProduct product = items.get(i);
+            System.out.println((i + 1) + ". " + product.getName() + " - $" + product.getPrice());
         }
 
-        // added to help the user quickly see how many items are in the cart
         System.out.println("Total items in cart: " + items.size());
         System.out.println();
     }
