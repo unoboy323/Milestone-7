@@ -1,36 +1,50 @@
 [ {
   "type" : "weapon",
-  "name" : "Axe",
-  "description" : "A heavy battle axe",
-  "price" : 120.0,
-  "quantity" : 2,
-  "damage" : 30
-}, {
-  "type" : "armor",
-  "name" : "Helmet",
-  "description" : "A solid steel helmet",
-  "price" : 60.0,
-  "quantity" : 9,
-  "defense" : 10
-}, {
-  "type" : "health",
-  "name" : "Potion",
-  "description" : "Restores health",
-  "price" : 25.0,
-  "quantity" : 3,
-  "healingAmount" : 50
+  "name" : "Sword",
+  "description" : "strong sharp sword",
+  "price" : 100.0,
+  "quantity" : 10,
+  "damage" : 100
 }, {
   "type" : "armor",
   "name" : "Shield",
   "description" : "A strong iron shield",
   "price" : 80.0,
-  "quantity" : 4,
+  "quantity" : 1,
   "defense" : 20
 }, {
+  "type" : "health",
+  "name" : "Potion",
+  "description" : "Restores health",
+  "price" : 25.0,
+  "quantity" : 1,
+  "healingAmount" : 50
+}, {
+  "type" : "armor",
+  "name" : "Helmet",
+  "description" : "A solid steel helmet",
+  "price" : 60.0,
+  "quantity" : 7,
+  "defense" : 10
+}, {
   "type" : "weapon",
-  "name" : "Sword",
-  "description" : "A sharp steel sword",
-  "price" : 100.0,
-  "quantity" : 6,
-  "damage" : 25
+  "name" : "Axe",
+  "description" : "A heavy battle axe",
+  "price" : 120.0,
+  "quantity" : 5,
+  "damage" : 30
+}, {
+  "type" : "health",
+  "name" : "Apple",
+  "description" : "Yummy apple",
+  "price" : 1.0,
+  "quantity" : 50,
+  "healingAmount" : 1
+}, {
+  "type" : "weapon",
+  "name" : "test sword",
+  "description" : "test",
+  "price" : 1.0,
+  "quantity" : 1,
+  "damage" : 1
 } ]

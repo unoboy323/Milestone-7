@@ -11,6 +11,7 @@ public class StoreFront {
     private ShoppingCart cart;
     private PlayerBag bag;
     private Checkout checkout;
+    private ServerThread serverThread;
 
     private static final String INVENTORY_FILE = "inventory.json";
 
@@ -34,6 +35,14 @@ public class StoreFront {
             System.out.println("There was a problem loading the store inventory.");
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Starts the administration server in the background.
+     */
+    public void startAdminServer() {
+        serverThread = new ServerThread(inventory, INVENTORY_FILE);
+        serverThread.start();
     }
 
     /**
@@ -164,6 +173,7 @@ public class StoreFront {
     public static void main(String[] args) {
         StoreFront store = new StoreFront();
         store.initializeStore();
+        store.startAdminServer();
 
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
@@ -222,6 +232,9 @@ public class StoreFront {
                 System.out.println("Inventory quantities have been reset for next time.");
                 System.out.println("Goodbye.");
                 System.out.println("Thanks for visiting the Arena Store Front!");
+
+                // closes the whole program, including the server thread
+                System.exit(0);
             } else {
                 System.out.println("Invalid menu choice.");
                 System.out.println("Please choose a number from 1 to 7.\n");

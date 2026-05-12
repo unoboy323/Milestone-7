@@ -74,6 +74,51 @@ public class InventoryManager {
     }
 
     /**
+     * Updates the inventory from products sent by the admin application.
+     * If the product exists, the quantity is added to the current quantity.
+     * If the product does not exist, it is added as a new product.
+     *
+     * @param newProducts the products sent from the admin application
+     */
+    public void updateInventory(ArrayList<SalableProduct> newProducts) {
+        if (newProducts == null) {
+            return;
+        }
+
+        for (int i = 0; i < newProducts.size(); i++) {
+            SalableProduct newProduct = newProducts.get(i);
+
+            if (newProduct == null) {
+                continue;
+            }
+
+            SalableProduct existingProduct = findProduct(newProduct.getName());
+
+            if (existingProduct == null) {
+                addProduct(newProduct);
+            } else {
+                existingProduct.setDescription(newProduct.getDescription());
+                existingProduct.setPrice(newProduct.getPrice());
+                existingProduct.setQuantity(existingProduct.getQuantity() + newProduct.getQuantity());
+
+                if (existingProduct instanceof Weapon && newProduct instanceof Weapon) {
+                    Weapon existingWeapon = (Weapon) existingProduct;
+                    Weapon newWeapon = (Weapon) newProduct;
+                    existingWeapon.setDamage(newWeapon.getDamage());
+                } else if (existingProduct instanceof Armor && newProduct instanceof Armor) {
+                    Armor existingArmor = (Armor) existingProduct;
+                    Armor newArmor = (Armor) newProduct;
+                    existingArmor.setDefense(newArmor.getDefense());
+                } else if (existingProduct instanceof Health && newProduct instanceof Health) {
+                    Health existingHealth = (Health) existingProduct;
+                    Health newHealth = (Health) newProduct;
+                    existingHealth.setHealingAmount(newHealth.getHealingAmount());
+                }
+            }
+        }
+    }
+
+    /**
      * Reduces the quantity of a product by 1.
      *
      * @param product the product to reduce
